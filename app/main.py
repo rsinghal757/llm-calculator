@@ -12,6 +12,7 @@ from typing import Dict, Optional
 load_dotenv()
 
 # Initialize OpenAI client
+openai_model = os.getenv("OPENAI_MODEL")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     raise ValueError("OPENAI_API_KEY environment variable is not set")
@@ -112,7 +113,7 @@ async def calculate(
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",  # You can change this to a different model if needed
+            model=openai_model,  # You can change this to a different model if needed
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_input}
