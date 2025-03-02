@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LLM Calculator</h1>
+            <p>Perform common tasks using OpenAI's APIs</p>
+        </header>
+        
+        <main>
+            <div class="terminal-panel">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-button red"></span>
+                        <span class="terminal-button yellow"></span>
+                        <span class="terminal-button green"></span>
+                    </div>
+                    <div class="terminal-title">Terminal</div>
+                </div>
+                <div class="terminal-content" id="terminal-content">
+                    <div class="welcome-message">
+                        <p>Welcome to LLM Calculator!</p>
+                        <p>Click on any button on the right to get started.</p>
+                    </div>
+                </div>
+                <div class="terminal-input-area" id="terminal-input-area" style="display: none;">
+                    <form id="input-form" hx-target="#terminal-content" hx-swap="innerHTML">
+                        <div class="prompt-container">
+                            <span class="prompt-text" id="prompt-text"></span>
+                        </div>
+                        <div class="input-container">
+                            <span class="input-prefix">></span>
+                            <textarea name="user_input" id="user-input" rows="1" placeholder="Type here..."></textarea>
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="calculator-panel">
+                <div class="calculator-buttons">
+                    {% for function_id, function in functions.items() %}
+                    <button 
+                        class="calc-button"
+                        hx-get="/api/function/{{ function_id }}"
+                        hx-target="#prompt-text"
+                        hx-swap="innerHTML"
+                        data-function-id="{{ function_id }}"
+                        data-function-name="{{ function.name }}">
+                        {{ function.name }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Powered by OpenAI APIs</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', path='/js/script.js') }}"></script>
+</body>
+</html> 
