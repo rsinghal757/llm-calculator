@@ -112,7 +112,7 @@ async def calculate(
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4",  # You can change this to a different model if needed
+            model="gpt-4o-mini",  # You can change this to a different model if needed
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_input}
