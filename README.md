@@ -2,6 +2,10 @@
 
 A web application that provides a simple interface for performing various tasks using OpenAI's APIs.
 
+## One-Click Deployment
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rsinghal757/llm-calculator)
+
 ## Features
 
 - Terminal-like interface for input and output
