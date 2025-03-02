@@ -35,6 +35,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     overflow-x: auto;
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
 }
 
 .tasks-table {
@@ -102,11 +104,14 @@
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
 }
 
 .edit-form {
     max-width: 800px;
     margin: 0 auto;
+    padding-bottom: 80px; /* Add padding to ensure buttons are visible */
 }
 
 .form-group {
@@ -146,6 +151,11 @@
     justify-content: flex-end;
     gap: 15px;
     margin-top: 30px;
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
 }
 
 .button {

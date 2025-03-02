@@ -22,21 +22,6 @@
                 <input type="hidden" name="function_id" value="{{ function_id }}">
                 <input type="hidden" name="is_new" value="{{ 'true' if is_new else 'false' }}">
                 
-                {% if is_new %}
-                <div class="form-group">
-                    <label for="new_function_id">Function ID:</label>
-                    <input 
-                        type="text" 
-                        id="new_function_id" 
-                        name="new_function_id" 
-                        required 
-                        pattern="[a-z0-9_]+" 
-                        title="Function ID can only contain lowercase letters, numbers, and underscores"
-                        placeholder="e.g., explain_like_im_5">
-                    <p class="help-text">This is used in URLs and code. Use only lowercase letters, numbers, and underscores.</p>
-                </div>
-                {% endif %}
-                
                 <div class="form-group">
                     <label for="name">Task Name:</label>
                     <input 
@@ -48,6 +33,22 @@
                         placeholder="e.g., Explain Like I'm 5">
                     <p class="help-text">This is displayed on the calculator button.</p>
                 </div>
+                
+                {% if is_new %}
+                <div class="form-group">
+                    <label for="new_function_id">Button ID (technical name):</label>
+                    <input 
+                        type="text" 
+                        id="new_function_id" 
+                        name="new_function_id" 
+                        required 
+                        pattern="[a-z0-9_]+" 
+                        title="Button ID can only contain lowercase letters, numbers, and underscores"
+                        placeholder="e.g., explain_like_im_5"
+                        oninput="generateFunctionId(this.value)">
+                    <p class="help-text">This is a technical ID used internally. It will be automatically generated from the task name, but you can customize it if needed.</p>
+                </div>
+                {% endif %}
                 
                 <div class="form-group">
                     <label for="prompt">System Prompt:</label>
@@ -83,5 +84,34 @@
             <p>Powered by OpenAI APIs</p>
         </footer>
     </div>
+
+    <script>
+        // Function to generate a function ID from the task name
+        function generateFunctionId(name) {
+            if (!name) return;
+            
+            // Only run this if we're on the add new task page
+            const newFunctionIdField = document.getElementById('new_function_id');
+            if (!newFunctionIdField) return;
+            
+            // Convert to lowercase, replace spaces with underscores, remove special characters
+            const functionId = name.toLowerCase()
+                .replace(/\s+/g, '_')
+                .replace(/[^a-z0-9_]/g, '');
+            
+            // Set the value of the function ID field
+            newFunctionIdField.value = functionId;
+        }
+        
+        // Add event listener to the task name field
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameField = document.getElementById('name');
+            if (nameField) {
+                nameField.addEventListener('input', function() {
+                    generateFunctionId(this.value);
+                });
+            }
+        });
+    </script>
 </body>
 </html> 

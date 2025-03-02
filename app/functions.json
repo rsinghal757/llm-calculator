@@ -1,6 +1,6 @@
 {
     "explain": {
-        "name": "Explain Like I'm 5",
+        "name": "Explain Like I'm Five",
         "prompt": "Explain the following concept as if you were explaining it to a 5-year-old child. Use simple language, analogies, and examples that a child would understand.",
         "input_prompt": "Enter a topic to explain:"
     },
@@ -19,9 +19,9 @@
         "prompt": "List and explain the main advantages (pros) and disadvantages (cons) of the following topic or decision.",
         "input_prompt": "Enter a topic to analyze:"
     },
-    "simplify": {
-        "name": "Simplify",
-        "prompt": "Take the following complex text and simplify it to make it more accessible and easier to understand, while preserving the key information.",
-        "input_prompt": "Enter complex text to simplify:"
+    "tell_the_git_command": {
+        "name": "Tell the Git Command",
+        "prompt": "Tell the git command for the required request by the user.",
+        "input_prompt": "Enter your situation"
     }
 }
