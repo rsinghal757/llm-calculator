@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ 'Add New Task' if is_new else 'Edit Task' }} - LLM Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/manage.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ 'Add New Task' if is_new else 'Edit Task' }}</h1>
+            <p>{{ 'Create a new calculator task' if is_new else 'Modify an existing calculator task' }}</p>
+            <nav class="main-nav">
+                <a href="/manage" class="nav-link">Back to Task Management</a>
+            </nav>
+        </header>
+        
+        <main class="edit-main">
+            <form class="edit-form" method="post" action="/save-function">
+                <input type="hidden" name="function_id" value="{{ function_id }}">
+                <input type="hidden" name="is_new" value="{{ 'true' if is_new else 'false' }}">
+                
+                {% if is_new %}
+                <div class="form-group">
+                    <label for="new_function_id">Function ID:</label>
+                    <input 
+                        type="text" 
+                        id="new_function_id" 
+                        name="new_function_id" 
+                        required 
+                        pattern="[a-z0-9_]+" 
+                        title="Function ID can only contain lowercase letters, numbers, and underscores"
+                        placeholder="e.g., explain_like_im_5">
+                    <p class="help-text">This is used in URLs and code. Use only lowercase letters, numbers, and underscores.</p>
+                </div>
+                {% endif %}
+                
+                <div class="form-group">
+                    <label for="name">Task Name:</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        value="{{ function.name }}"
+                        placeholder="e.g., Explain Like I'm 5">
+                    <p class="help-text">This is displayed on the calculator button.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prompt">System Prompt:</label>
+                    <textarea 
+                        id="prompt" 
+                        name="prompt" 
+                        required 
+                        rows="6"
+                        placeholder="Instructions for the AI model...">{{ function.prompt }}</textarea>
+                    <p class="help-text">This is the system prompt sent to the OpenAI API. It defines how the AI should respond.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="input_prompt">Input Prompt:</label>
+                    <input 
+                        type="text" 
+                        id="input_prompt" 
+                        name="input_prompt" 
+                        required 
+                        value="{{ function.input_prompt }}"
+                        placeholder="e.g., Enter a topic to explain:">
+                    <p class="help-text">This is shown to the user when they click the button.</p>
+                </div>
+                
+                <div class="form-actions">
+                    <a href="/manage" class="button cancel">Cancel</a>
+                    <button type="submit" class="button save">Save Task</button>
+                </div>
+            </form>
+        </main>
+        
+        <footer>
+            <p>Powered by OpenAI APIs</p>
+        </footer>
+    </div>
+</body>
+</html> 

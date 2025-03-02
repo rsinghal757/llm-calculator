@@ -1,0 +1,27 @@
+{
+    "explain": {
+        "name": "Explain Like I'm 5",
+        "prompt": "Explain the following concept as if you were explaining it to a 5-year-old child. Use simple language, analogies, and examples that a child would understand.",
+        "input_prompt": "Enter a topic to explain:"
+    },
+    "summarize": {
+        "name": "Summarize",
+        "prompt": "Provide a concise summary of the following text, highlighting the key points and main ideas.",
+        "input_prompt": "Enter text to summarize:"
+    },
+    "discover": {
+        "name": "How Did We Discover?",
+        "prompt": "Explain the historical process of how humans discovered or developed knowledge about the following topic. Include key figures, experiments, and breakthroughs.",
+        "input_prompt": "Enter a scientific concept, phenomenon, or technology:"
+    },
+    "pros_cons": {
+        "name": "Pros & Cons",
+        "prompt": "List and explain the main advantages (pros) and disadvantages (cons) of the following topic or decision.",
+        "input_prompt": "Enter a topic to analyze:"
+    },
+    "simplify": {
+        "name": "Simplify",
+        "prompt": "Take the following complex text and simplify it to make it more accessible and easier to understand, while preserving the key information.",
+        "input_prompt": "Enter complex text to simplify:"
+    }
+}

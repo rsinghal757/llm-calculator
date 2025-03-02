@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Tasks - LLM Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/manage.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Manage Tasks</h1>
+            <p>Add, edit, or delete calculator tasks</p>
+            <nav class="main-nav">
+                <a href="/" class="nav-link">Back to Calculator</a>
+                <a href="/edit/new" class="nav-link add-button">Add New Task</a>
+            </nav>
+        </header>
+        
+        <main class="manage-main">
+            <div class="tasks-list">
+                {% if functions %}
+                    <table class="tasks-table">
+                        <thead>
+                            <tr>
+                                <th>Task Name</th>
+                                <th>Function ID</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for function_id, function in functions.items() %}
+                            <tr>
+                                <td>{{ function.name }}</td>
+                                <td><code>{{ function_id }}</code></td>
+                                <td class="actions">
+                                    <a href="/edit/{{ function_id }}" class="action-button edit">Edit</a>
+                                    <button 
+                                        class="action-button delete"
+                                        onclick="confirmDelete('{{ function_id }}', '{{ function.name }}')">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="no-tasks">
+                        <p>No tasks found. <a href="/edit/new">Add your first task</a>.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+        
+        <footer>
+            <p>Powered by OpenAI APIs</p>
+        </footer>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete the task "<span id="delete-task-name"></span>"?</p>
+            <p>This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="cancel-delete" class="modal-button cancel">Cancel</button>
+                <form id="delete-form" method="post" action="">
+                    <button type="submit" class="modal-button confirm">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(functionId, functionName) {
+            // Set the task name in the modal
+            document.getElementById('delete-task-name').textContent = functionName;
+            
+            // Set the form action
+            document.getElementById('delete-form').action = `/delete-function/${functionId}`;
+            
+            // Show the modal
+            document.getElementById('delete-modal').style.display = 'flex';
+        }
+        
+        // Close the modal when clicking the cancel button
+        document.getElementById('cancel-delete').addEventListener('click', function() {
+            document.getElementById('delete-modal').style.display = 'none';
+        });
+        
+        // Close the modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('delete-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 

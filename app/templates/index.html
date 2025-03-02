@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/manage.css') }}">
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
 </head>
 <body>
     <div class="container">
+        <a href="/manage" class="manage-link">Manage Tasks</a>
+        
         <header>
             <h1>LLM Calculator</h1>
             <p>Perform common tasks using OpenAI's APIs</p>
